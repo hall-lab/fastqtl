@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/fastqtl/code/!svn/ver/14/src/utils/Eigen/src/Eigen2Support/Geometry
+END
+AlignedBox.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/AlignedBox.h
+END
+Scaling.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Scaling.h
+END
+ParametrizedLine.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/CMakeLists.txt
+END
+Transform.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Transform.h
+END
+Quaternion.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Quaternion.h
+END
+RotationBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/RotationBase.h
+END
+Hyperplane.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
+END
+Rotation2D.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
+END
+All.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/All.h
+END
+Translation.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/Translation.h
+END
+AngleAxis.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
+END

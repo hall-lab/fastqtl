@@ -1,0 +1,15 @@
+
+Parameters:
+  * Only best SNP-MP pairs' statistics are reported
+  * 1000 permutations
+  * Seed = 1411655848
+  * Cis-window = 1000000
+  * Association testing using linear regression
+  * 10 commands output in [commands.txt]
+
+Scanning phenotype data in [phenotypes.bed.gz]
+  * 364 phenotypes included
+
+Generate 10 commands in [commands.txt]
+
+Running time: 0 seconds

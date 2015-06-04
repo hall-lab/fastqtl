@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/p/fastqtl/code/!svn/ver/36/example
+END
+covariates.txt.gz
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/fastqtl/code/!svn/ver/37/example/covariates.txt.gz
+END
+phenotypes.bed.gz.tbi
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/fastqtl/code/!svn/ver/37/example/phenotypes.bed.gz.tbi
+END
+phenotypes.bed.gz
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/fastqtl/code/!svn/ver/37/example/phenotypes.bed.gz
+END
+genotypes.vcf.gz.tbi
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/fastqtl/code/!svn/ver/37/example/genotypes.vcf.gz.tbi
+END
+genotypes.vcf.gz
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/fastqtl/code/!svn/ver/37/example/genotypes.vcf.gz
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/p/fastqtl/code/!svn/ver/17/tabix-0.2.6/python
+END
+tabixmodule.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/fastqtl/code/!svn/ver/30/tabix-0.2.6/python/tabixmodule.c
+END
+test.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/fastqtl/code/!svn/ver/30/tabix-0.2.6/python/test.py
+END
+setup.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/fastqtl/code/!svn/ver/30/tabix-0.2.6/python/setup.py
+END

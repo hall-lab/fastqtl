@@ -1,0 +1,42 @@
+
+Parameters:
+  * Only best SNP-MP pairs' statistics are reported
+  * 1000 permutations
+  * Seed = 1411654730
+  * Cis-window = 1000000
+  * Association testing using linear regression
+  * Chunk processed 25 / 30
+
+Scanning phenotype data in [phenotypes.bed.gz]
+  * 364 phenotypes included
+
+Reading phenotype data in [phenotypes.bed.gz]
+  * region = 22:20004537-20748406
+  * 373 samples included
+  * 12 phenotypes included
+
+Reading genotype data in [genotypes.vcf.gz] in VCF format
+  * region = 22:19004537-21748406
+  * 373 samples included
+  * 9101 sites included
+
+Imputing missing genotypes
+
+Imputing missing phenotypes
+
+Computing SD for genotypes
+
+Computing SD for phenotypes
+
+Normalising phenotypes
+
+Normalising genotypes
+
+Scan cis-window, permute phenotypes and report nominal, empirical and estimated p-values
+  * W = [1000000]
+  * P = [1000] (fixed number)
+  * O = [results.txt.gz]
+  * 1/12  * 2/12  * 3/12  * 4/12  * 5/12  * 6/12  * 7/12  * 8/12  * 9/12  * 10/12  * 11/12  * 12/12  * 82647 tested pairs
+  * 82729647 association tests performed
+
+Running time: 39 seconds

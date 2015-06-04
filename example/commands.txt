@@ -1,0 +1,10 @@
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:17517460-20748406 --region 22:17517460-20748406
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:36424473-39052635 --region 22:36424473-39052635
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:24407642-30163001 --region 22:24407642-30163001
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:42017123-45704850 --region 22:42017123-45704850
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:20792146-22307210 --region 22:20792146-22307210
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:39052641-39915701 --region 22:39052641-39915701
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:30163352-36044443 --region 22:30163352-36044443
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:45809500-51222092 --region 22:45809500-51222092
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:22337213-24322661 --region 22:22337213-24322661
+ ../bin/fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:39928860-42017101 --region 22:39928860-42017101

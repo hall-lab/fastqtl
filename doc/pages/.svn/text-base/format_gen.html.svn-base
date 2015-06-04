@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+<meta http-equiv="Cache-Control" content="max-age=3600"/>
+<meta name="description" content="description"/>
+<meta name="keywords" content="keywords"/> 
+<meta name="author" content="author"/> 
+<link rel="stylesheet" type="text/css" href="../style/default.css" media="screen"/>
+<title>FastQTL</title>
+<script language="Javascript" src="../script/print_last_modif_date.js" ></script>
+</head>
+
+<body>
+<div class="content">
+	
+	<div class="item"  id="gen1">
+		<h1>GEN and SAMPLE file format</h1>
+		<p>
+		The <b>GEN</b> file contains the genetic data (genotypes) post imputation and gives some description of the variants. Hereafter an example:
+		</p>
+		
+		<code>
+		chr7 SNP1 123 A G 1.00 0.00 0.00 0.12 0.80 0.08 0.00 1.00 0.00 0.01 0.95 0.04<br>
+		chr7 SNP2 456 T C 0.00 1.00 0.00 0.00 0.01 0.99 0.95 0.04 0.01 0.00 1.00 0.00<br>
+		chr7 SNP3 789 A T 0.00 0.00 0.00 0.80 0.15 0.05 0.00 1.00 0.00 0.00 0.00 1.00<br>		
+		</code>
+	
+		<p>
+		The file is <i>SPACE</i> delimited. Each line corresponds to a single variant. And the first 5 columns are:
+		</p>
+		
+		<ol>
+			<li>Chromosome ID <i>[string]</i></li>
+			<li>RS ID <i>[string]</i></li>
+			<li>Variant physical position (bp) <i>[integer]</i></li>
+			<li>Reference allele <i>[string]</i></li>
+			<li>Alternative allele <i>[string]</i></li>
+		</ol>
+		
+		<p>
+		Then, the successive triplets [6-8], [9-11], [12-14] and [15-17] correspond to triplets of posterior probabilities of genotypes provided by imputation. 
+		They appear in the same order as specified in the <i>SAMPLE</i> file (see below).
+		Posterior probabilities are encoded as triplets of 3 floating numbers that sum to 1.0 and correspond to the respective probabilities of Ref/Ref, Ref/Alt and Alt/Alt genotypes. 
+		Note that missing data are encoded as "0 0 0" (For example IND1 x SNP3).
+		This file should have L lines and 3N+5 columns where L and N are the numbers of variants and samples respectively.
+		</p>
+		
+		<p>
+		<b>FastQTL</b> transforms internally the posterior probabilities in dosages before QTL mapping. To do so, we use the following formula: 
+		</p>
+		
+		<code>
+		D = P(Ref/Alt) + 2 * P(Alt/Alt) 
+		</code>
+		
+		<note>
+		Any missing data (that is here when the sum of posteriors is 0) is imputed internally as the average dosage for the corresponding variant site.
+		</note>
+	</div>
+		
+	<div class="item" id="gen2">
+		<h1>SAMPLE file</h1>
+		<p>
+		The <b>SAMPLE</b> file describes the samples. Hereafter, a SAMPLE file example corresponding to the above data set:
+		</p>
+		
+		<code>
+		ID_1 ID_2 missing<br>
+		0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+		UNR1 UNR1 0<br>
+		UNR2 UNR2 0<br>
+		UNR3 UNR3 0<br>
+		UNR4 UNR4 0<br>
+		</code>
+		
+		<p>
+		The file is <i>SPACE</i> delimited. The first two lines are header lines that describe the content of the file.
+		Then, each line corresponds to a single sample. The first three columns are:
+		<ul>
+			<li>1. First individual ID</li>
+			<li>2. Second individual ID</li>
+			<li>3. Missing data proportion</li>
+		</ul>
+		</p>
+		
+		<p>
+		Additional columns usually describe other information that are not used in FastQTL.
+		This file should have N+2 lines and at least 3 columns whit N the number of samples. 
+		</p>
+	</div>
+	
+	<div class="item" id="gen3">
+		<h1>Indexing GEN file (required)</h1>
+		<p>
+		To feed FastQTL with GEN files, some preparation is needed to make it indexable with Tabix.
+		Specifically, three things need to be done:
+		<ul>
+			<li>1. Replacing <i>SPACE</i> by <i>TAB</i>. Tabix only works with files that are rab-delimited</li>
+			<li>2. Fixing the chromosome field. First column of the file needs to be fixed in order to only have chromosome ID. After imputation, <b>---</b> are inserted in the first column when the variant has been imputed.</li>
+			<li>3. Compressing the file with bgzip.</li>
+		</ul>
+		Hereafter, two commands that do the tricks:
+		</p>
+		
+		<code>
+		cat data.gen | awk '{ $1 = "chr1"; print $0 }' > data1.gen<br>
+		cat data1.gen | tr " " "\t" | bgzip -c > data.gen.gz && rm data1.gen
+		</code>
+		
+		<p>
+		Once the GEN file fixed, we can then index it with tabix as follows: 		
+		</p>
+		
+		<code>
+		tabix -s 1 -b 3 -e 3 data.gen.gz
+		</code>
+		
+		<p>
+		Look <A href=http://samtools.sourceforge.net/tabix.shtml>here</A> for more details on Tabix command line.
+		The above command line produces a file <b>data.gen.gz.tbi</b> that contains the index for <b>data.gen.gz</b>.
+		These tow files need to be together in the same folder in order for FastQTL do be able to also read the index file when reading <b>data.gen.gz</b>.   
+		</p>
+	</div>
+	
+	<div class="log"><script type="text/javascript"> print_last_modif_date("$Date$"); </script></div>
+</div>
+</body>
+</html>

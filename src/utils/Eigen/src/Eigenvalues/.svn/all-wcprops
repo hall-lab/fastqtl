@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/fastqtl/code/!svn/ver/14/src/utils/Eigen/src/Eigenvalues
+END
+RealSchur_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/RealSchur_MKL.h
+END
+RealSchur.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/RealSchur.h
+END
+HessenbergDecomposition.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/CMakeLists.txt
+END
+GeneralizedSelfAdjointEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
+END
+MatrixBaseEigenvalues.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
+END
+ComplexEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/ComplexEigenSolver.h
+END
+EigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/EigenSolver.h
+END
+SelfAdjointEigenSolver_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h
+END
+ComplexSchur_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/ComplexSchur_MKL.h
+END
+SelfAdjointEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
+END
+Tridiagonalization.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/Tridiagonalization.h
+END
+ComplexSchur.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/Eigenvalues/ComplexSchur.h
+END

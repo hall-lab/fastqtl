@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/fastqtl/code/!svn/ver/13/src/utils/Eigen/src/QR
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/CMakeLists.txt
+END
+HouseholderQR_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/HouseholderQR_MKL.h
+END
+HouseholderQR.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/HouseholderQR.h
+END
+ColPivHouseholderQR_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/ColPivHouseholderQR_MKL.h
+END
+FullPivHouseholderQR.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/FullPivHouseholderQR.h
+END
+ColPivHouseholderQR.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/QR/ColPivHouseholderQR.h
+END

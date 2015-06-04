@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/fastqtl/code/!svn/ver/13/src/utils/Eigen/src/IterativeLinearSolvers
+END
+ConjugateGradient.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/CMakeLists.txt
+END
+BiCGSTAB.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+END
+IncompleteLUT.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+END
+BasicPreconditioners.h
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+END
+IterativeSolverBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+END

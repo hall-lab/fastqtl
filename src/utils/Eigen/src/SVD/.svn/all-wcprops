@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/fastqtl/code/!svn/ver/13/src/utils/Eigen/src/SVD
+END
+JacobiSVD_MKL.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/SVD/JacobiSVD_MKL.h
+END
+UpperBidiagonalization.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/SVD/UpperBidiagonalization.h
+END
+JacobiSVD.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/SVD/JacobiSVD.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/fastqtl/code/!svn/ver/30/src/utils/Eigen/src/SVD/CMakeLists.txt
+END
