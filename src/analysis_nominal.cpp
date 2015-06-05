@@ -11,7 +11,8 @@ void data::runNominal(string fout, float cis_window) {
 	ofile fdo (fout);
 	for (int p = 0 ; p < phenotype_count ; p ++) {
 		for (int g = 0 ; g < genotype_count ; g ++) {
-			int cisdistance = genotype_pos[g] - phenotype_start[p];
+                        int cisdistance = min(abs(genotype_pos[g] - phenotype_start[p]),
+					      abs(genotype_end[g] - phenotype_start[p]));
 			if (abs(cisdistance) <= cis_window) {
 				double corr = getCorrelation(g, p);
 				fdo << phenotype_id[p];

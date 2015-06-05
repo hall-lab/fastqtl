@@ -18,7 +18,8 @@ void data::runPermutation(string fout, float cis_window, int minPermutations, in
 		//STEP1: MAP GENOTYPE-PHENOTYPE PAIRS
 		vector < int > targetGenotypes, targetDistances;
 		for (int g = 0 ; g < genotype_count ; g ++) {
-			int cisdistance = genotype_pos[g] - phenotype_start[p];
+                        int cisdistance = min(abs(genotype_pos[g] - phenotype_start[p]),
+					      abs(genotype_end[g] - phenotype_start[p]));
 			if (abs(cisdistance) <= cis_window) {
 				targetGenotypes.push_back(g);
 				targetDistances.push_back(cisdistance);

@@ -4,6 +4,7 @@
 void data::readGenotypesVCF(string fvcf) {
 	string buffer;
 	vector<string> str, field;
+	map<string,string> info;
 	int n_includedG = 0;
 	int n_excludedG = 0;
 	int n_excludedF = 0;
@@ -43,12 +44,38 @@ void data::readGenotypesVCF(string fvcf) {
 			sutils::tokenize(str[8], field, ":");
 			for (int f = 0 ; f < field.size() ; f ++) if (field[f] == "DS") idx_field = f;
 			if (idx_field < 0) { for (int f = 0 ; f < field.size() ; f ++) if (field[f] == "GT") idx_field = f; gt_field = true; }
-			//Read data is format is correct
+
+			//Parse VCF INFO field
+			vector<string> info_v;
+			sutils::tokenize(str[7], info_v, ";");
+			for (int i = 0; i < info_v.size(); ++i) {
+			  size_t sepPosition = info_v[i].find ('=');
+			  string tokenA = info_v[i].substr(0, sepPosition);
+			  string tokenB = info_v[i].substr(sepPosition + 1);
+			  info[tokenA] = tokenB;
+			}
+			//Read data if format is correct
 			if (idx_field >= 0) {
 				genotype_id.push_back(str[2]);
 				genotype_chr.push_back(str[0]);
 				genotype_pos.push_back(atoi(str[1].c_str()));
 				genotype_val.push_back(vector < float > (sample_count, 0.0));
+
+				//Parse VCF INFO to retrieve END position for structural variants
+				map<string,string>::iterator s_it;
+				int end = 0;
+				string svtype;
+				for (s_it = info.begin(); s_it != info.end(); ++s_it) {
+				  if (s_it->first == "SVTYPE")
+				    svtype = s_it->second;
+				  if (s_it->first == "END")
+				    end = atoi(s_it->second.c_str());
+				}
+				if (end && svtype != "BND")
+				  genotype_end.push_back(end);
+				else
+				  genotype_end.push_back(atoi(str[1].c_str()));
+
 				for (int t = 9 ; t < str.size() ; t ++) {
 					if (mappingS[t-9] >= 0) {
 						sutils::tokenize(str[t], field, ":");
