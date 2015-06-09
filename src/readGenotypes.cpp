@@ -84,7 +84,8 @@ void data::readGenotypesVCF(string fvcf) {
 							if (field[idx_field][0] == '.') genotype_val.back()[mappingS[t-9]] = -1.0;
 							else {
                                 float dosage = atof(field[idx_field].c_str());
-                                if (dosage < 0 || dosage > 2) LOG.error("DosareadGenotypesImpute2_yesIndex(fgen, fsam);ges must be between 0 and 2, check: " + field[idx_field]);
+                                // if (dosage < 0 || dosage > 2) LOG.error("DosareadGenotypesImpute2_yesIndex(fgen, fsam);ges must be between 0 and 2, check: " + field[idx_field]);
+                                if (dosage < 0) LOG.error("DosareadGenotypesImpute2_yesIndex(fgen, fsam);ges must be greater than 0, check: " + field[idx_field]);
                                 genotype_val.back()[mappingS[t-9]] = dosage;
 							}
 						} else {
