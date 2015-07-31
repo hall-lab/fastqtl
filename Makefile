@@ -1,5 +1,5 @@
 #PLEASE SPECIFY THE R path here where you built the R math library standalone 
-RMATH=~/Software/R-3.1.3/src
+RMATH=/gscmnt/gc2719/halllab/src/R-3.2.0/src
 
 #compiler
 CXX=g++
@@ -27,7 +27,7 @@ INC_MACX=-I/usr/local/include/
 
 #libraries
 #LIB_BASE=-lm -lboost_iostreams -lboost_program_options -lz -lgsl -lblas
-LIB_BASE=-lm -lz -lboost_iostreams -lboost_program_options -lgsl -lblas
+LIB_BASE=-lm -lz -lboost_iostreams -lboost_program_options -lgsl -lblas -I/gscmnt/gc2719/halllab/src/boost_1_57_0/include -L/gscmnt/gc2719/halllab/src/boost_1_57_0/lib
 LIB_MATH=$(RMATH)/nmath/standalone/libRmath.a
 LIB_TABX=$(PATH_TABX)/libtabix.a
 LIB_MACX=-L/usr/local/lib/
@@ -74,6 +74,6 @@ obj/%.o: %.cpp $(FILE_H)
 
 clean: 
 	rm -f obj/*.o $(FILE_BIN)
-	
+
 cleanall: clean 
 	cd $(PATH_TABX) && make clean && cd ../..	
