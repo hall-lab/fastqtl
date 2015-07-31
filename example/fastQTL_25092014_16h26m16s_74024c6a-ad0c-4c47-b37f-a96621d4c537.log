@@ -1,9 +1,0 @@
-
-Parameters:
-  * Only best SNP-MP pairs' statistics are reported
-  * 1000 permutations
-  * Seed = 1411655176
-  * Cis-window = 1000000
-  * Association testing using linear regression
-
-ERROR: one option [--region, --chunk, --commands] needs to be specified

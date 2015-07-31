@@ -20,7 +20,7 @@
 		</p>
 		
 		<code>
-		##fileformat=VCFv4.1
+		##fileformat=VCFv4.1<br>
 		#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT  UNR1	UNR2	UNR3	UNR4<br>
 		chr7	123	SNP1	A	G	100	PASS	INFO	GT:DS	0/0:0.001	0/0:0.000	0/1:0.999	1/1:1.999<br>
 		chr7	456	SNP2	T	C	100	PASS	INFO	GT:DS	0/0:0.001	0/0:0.000	0/1:1.100	0/0:0.100<br>
@@ -30,11 +30,12 @@
 		<p>
 		A precise description of this file format can be found <A href=http://vcftools.sourceforge.net/specs.html>here</A>.
 		FastQTL needs at least one of the two following fields <b>GT</b> or <b>DS</b>. 
-		It uses in priority the <b>DS</b> field and if absent, the <b>GT</b> field from which it derives the required dosages.		 
+		It uses in priority the <b>DS</b> field and if absent, the <b>GT</b> field from which it derives the required dosages.
+		We strongly recommend to use dosages instead of fixed genotypes in order to account for imputation uncertainty.		 
 		</p>
 		
 		<note>
-		Any missing data (that is here for genotypes <b>./.</b>, <b>./0</b> or <b>./1</b>) is imputed internally as the average dosage for the corresponding variant site.
+		Missing entries (<b>./.</b>, <b>./0</b> or <b>./1</b>) are internally imputed as mean dosage at the variant site.
 		</note>
 		
 	</div>
@@ -46,17 +47,17 @@
 		</p>
 		
 		<code>
-		bgzip data.vcf && tabix -p vcf data.vcf.gz		
+		bgzip genotypes.vcf && tabix -p vcf genotypes.vcf.gz		
 		</code>
 		
 		<p>
 		Look <A href=http://samtools.sourceforge.net/tabix.shtml>here</A> for more details on Tabix and Bgzip command lines.
-		The above command line produces a file <b>data.vcf.gz.tbi</b> that contains the index for <b>data.vcf.gz</b>.
-		These tow files need to be together in the same folder in order for FastQTL do be able to also read the index file when reading <b>data.vcf.gz</b>.   
+		The above command line produces a file <b>genotypes.vcf.gz.tbi</b> that contains the index for <b>data.vcf.gz</b>.
+		These tow files need to be together in the same folder in order for FastQTL do be able to also read the index file when reading <b>genotypes.vcf.gz</b>.   
 		</p>
 	</div>
 	
-	<div class="log"><script type="text/javascript"> print_last_modif_date("$Date: 2014-09-25 16:39:52 +0200 (Thu, 25 Sep 2014) $"); </script></div>
+	<div class="log"><script type="text/javascript"> print_last_modif_date("$Date: 2015-01-22 00:08:17 +0100 (Thu, 22 Jan 2015) $"); </script></div>
 </div>
 </body>
 </html>

@@ -1,3 +1,8 @@
+/*
+ * This is a C++ wrapper around tabix project which abstracts some of the details of opening and jumping in tabix-indexed files.
+ * Author: Erik Garrison erik.garrison@gmail.com
+ */
+
 #ifndef _TABIX_HPP
 #define _TABIX_HPP
 

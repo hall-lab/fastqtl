@@ -1,10 +1,21 @@
-//$Id: utils.cpp 732 2013-10-04 09:42:39Z koskos $
+//FastQTL: Fast and efficient QTL mapper for molecular phenotypes
+//Copyright (C) 2015 Olivier DELANEAU, Alfonso BUIL, Emmanouil DERMITZAKIS & Olivier DELANEAU
+//
+//This program is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "utils.h"
 
-/******************************************************/
-/*                  UTILS STATISTICS                  */
-/******************************************************/
 long seed = -123456789;
 pthread_mutex_t mutex_rng;
 
@@ -12,6 +23,44 @@ namespace putils {
 	void initRandom(long s) {
 		seed = - s;
 		pthread_mutex_init(&mutex_rng, NULL);
+	}
+
+	double mean(vector < double > & X) {
+		double mean = 0.0;
+		for (int x = 0 ; x < X.size() ; x ++) mean += X[x];
+		mean /= X.size();
+		return mean;
+	}
+
+	double variance(vector < double > & X, double mean) {
+		double variance = 0.0;
+		for (int x = 0 ; x < X.size() ; x++) variance += (X[x] - mean) * (X[x] - mean);
+		variance /= (X.size() - 1);
+		return variance;
+	}
+
+	double mean(vector < float > & X) {
+		double mean = 0.0;
+		for (int x = 0 ; x < X.size() ; x ++) mean += X[x];
+		mean /= X.size();
+		return mean;
+	}
+
+	double variance(vector < float > & X, double mean) {
+		double variance = 0.0;
+		for (int x = 0 ; x < X.size() ; x++) variance += (X[x] - mean) * (X[x] - mean);
+		variance /= (X.size() - 1);
+		return variance;
+	}
+
+	bool isVariable(vector < float > & v) {
+		for (int i = 1 ; i < v.size(); i++) if (v[i] != v[i-1]) return true;
+		return false;
+	}
+
+	bool isVariable(vector < double > & v) {
+		for (int i = 1 ; i < v.size(); i++) if (v[i] != v[i-1]) return true;
+		return false;
 	}
 
 	double getRandom() {
@@ -56,6 +105,11 @@ namespace putils {
 		return (int)floor(getRandom() * n);
 	}
 
+	void bootstrap(int N, vector < int > & sample) {
+		sample = vector < int > (N, 0);
+		for (int e = 0 ; e < N ; e ++) sample[e] = getRandom(N);
+	}
+
 	void normalise(vector < double > & v) {
 		double sum = 0.0;
 		for (int i = 0 ; i < v.size() ; i++) sum += v[i];
@@ -70,6 +124,15 @@ namespace putils {
 			csum += v[i+1];
 		}
 		return v.size() - 1;
+	}
+
+	void random_shuffle(vector < vector < float > > & X) {
+		int n = X[0].size();
+		vector < int > O;
+		for (int i = 0; i < n; i++) O.push_back(i);
+		random_shuffle(O.begin(), O.end());
+		vector < vector < float > > Xtmp = X;
+		for (int c = 0 ; c < X.size() ; c++) for (int e = 0 ; e < n ; e++) X[c][e] = Xtmp[c][O[e]];
 	}
 
 	double entropy(vector < double > & v) {
@@ -138,6 +201,11 @@ namespace autils {
 			index_max = i;
 		}
 		return index_max;
+	}
+
+	void reorder(vector < float > & v, vector < unsigned int > const & order )  {
+		vector < float > vtmp = v;
+		for (int e = 0 ; e < order.size() ; e ++) v[e] = vtmp[order[e]];
 	}
 
 	void findUniqueSet(vector < bool > & B, vector < int > & U) {
@@ -298,6 +366,13 @@ namespace sutils {
 		return tokens.size();
 	}
 
+	bool isNumeric(string & str) {
+		float n;
+		std::istringstream in(str);
+		if (!(in >> n)) return false;
+		return true;
+	}
+
 	string int2str(int n) {
 		ostringstream s2( stringstream::out );
 		s2 << n;
@@ -307,14 +382,19 @@ namespace sutils {
 	string int2str(vector < int > & v) {
 		ostringstream s2( stringstream::out );
 		for (int l = 0 ; l < v.size() ; l++) {
-			if (v[l] < 0) s2 << "-";
-			else s2 << v[l] ;
+			s2 << " " << v[l] ;
 		}
 		return s2.str();
 	}
 
 	string long2str(long int n) {
 		ostringstream s2( stringstream::out );
+		s2 << n;
+		return s2.str();
+	}
+
+	string double2str(double n) {
+		ostringstream s2;
 		s2 << n;
 		return s2.str();
 	}
@@ -327,13 +407,31 @@ namespace sutils {
 		return s2.str();
 	}
 
+	string double2str(vector < double > &v) {
+		ostringstream s2;
+		for (int l = 0 ; l < v.size() ; l++) s2 << v[l] << ((l!=v.size()-1)?" ":"");
+		return s2.str();
+	}
+
 	string double2str(vector < double > &v, int prc) {
 		ostringstream s2;
 		s2 << setiosflags( ios::fixed );
 		if ( prc >= 0 ) s2.precision(prc);
-		for (int l = 0 ; l < v.size() ; l++) {
-			s2 << v[l] << " ";
-			}
+		for (int l = 0 ; l < v.size() ; l++) s2 << v[l] << ((l!=v.size()-1)?" ":"");
+		return s2.str();
+	}
+
+	string double2str(vector < float > &v) {
+		ostringstream s2;
+		for (int l = 0 ; l < v.size() ; l++) s2 << v[l] << ((l!=v.size()-1)?" ":"");
+		return s2.str();
+	}
+
+	string double2str(vector < float > &v, int prc) {
+		ostringstream s2;
+		s2 << setiosflags( ios::fixed );
+		if ( prc >= 0 ) s2.precision(prc);
+		for (int l = 0 ; l < v.size() ; l++) s2 << v[l] << ((l!=v.size()-1)?" ":"");
 		return s2.str();
 	}
 
@@ -354,6 +452,12 @@ namespace sutils {
 		s2 << buffer;
 		return s2.str();
 	}
+
+    string remove_spaces(const string &s) {
+             int last = s.size() - 1;
+             while (last >= 0 && s[last] == ' ') --last;
+             return s.substr(0, last + 1);
+     }
 };
 
 /******************************************************/
@@ -361,7 +465,7 @@ namespace sutils {
 /******************************************************/
 namespace futils {
 	bool isFile(string f) {
-		ifstream inp;
+		ifile inp;
 		inp.open(f.c_str(), ifstream::in);
 		if(inp.fail()) {
 			inp.clear(ios::failbit);
@@ -373,15 +477,21 @@ namespace futils {
 	}
 
 	bool createFile(string f) {
-		ofstream out;
-		out.open(f.c_str(), ofstream::out);
-		if(out.fail()) {
+		ofile out;
+		//out.open(f.c_str(), ofstream::out);
+		out.open(f.c_str());
+		if (out.fail()) {
 			out.clear(ios::failbit);
 			out.close();
 			return false;
-		}
+		} else out << "";
 		out.close();
 		return true;
+	}
+
+	void checkFile(string f, bool readmode) {
+		if (readmode && !isFile(f)) LOG.error(f + " is impossible to open, check file existence or reading permissions");
+		if (!readmode && !createFile(f)) LOG.error(f + " is impossible to open, check writing permissions");
 	}
 
 	string extensionFile(string & filename) {

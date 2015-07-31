@@ -1,3 +1,8 @@
+/*
+ * This is a C++ wrapper around tabix project which abstracts some of the details of opening and jumping in tabix-indexed files.
+ * Author: Erik Garrison erik.garrison@gmail.com
+ */
+
 #include "tabix.hpp"
 
 Tabix::Tabix(void) { }
@@ -87,7 +92,7 @@ bool Tabix::setRegion(string region) {
     } else return false;
 }
 
-bool Tabix::getNextLine(string& line) {
+bool Tabix::getNextLine(string & line) {
     const char* s;
     int len;
     if (!firstline.empty()) {

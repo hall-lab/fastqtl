@@ -1,4 +1,18 @@
-//$Id: utils.h 727 2013-09-24 09:37:13Z koskos $
+//FastQTL: Fast and efficient QTL mapper for molecular phenotypes
+//Copyright (C) 2015 Olivier DELANEAU, Alfonso BUIL, Emmanouil DERMITZAKIS & Olivier DELANEAU
+//
+//This program is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef _UTILS_H
 #define _UTILS_H
@@ -25,13 +39,16 @@
 #define BIG_POS_INT 1000000000
 #define BIG_NEG_INT -1000000000
 
+#define ___NA___ (0.0/0.0)
+
 #include <string>
+#include <complex>
 #include <vector>
 #include <queue>
 #include <map>
+#include <numeric>
 #include <bitset>
 #include <list>
-#include <tr1/unordered_map>
 #include <bitset>
 #include <cmath>
 #include <algorithm>
@@ -62,16 +79,89 @@ namespace bio = boost::iostreams;
 namespace bpo = boost::program_options;
 namespace bid = boost::uuids;
 
+
+/******************************************************/
+/*                  UTILS RUNNING STATS               */
+/******************************************************/
+
+class RunningStat {
+public:
+	RunningStat() : m_n(0) {}
+
+	RunningStat(vector < double > & X): m_n(0) {
+		for (unsigned int e = 0 ; e < X.size() ; e ++) Push(X[e]);
+	}
+
+	RunningStat(vector < float > & X): m_n(0) {
+		for (unsigned int e = 0 ; e < X.size() ; e ++) Push((double)X[e]);
+	}
+
+	void Clear() { m_n = 0; }
+
+	void Push(double x) {
+		m_n++;
+
+		if (m_n == 1) {
+			m_oldM = m_newM = x;
+			m_oldS = 0.0;
+		} else {
+			m_newM = m_oldM + (x - m_oldM)/m_n;
+            m_newS = m_oldS + (x - m_oldM)*(x - m_newM);
+            m_oldM = m_newM;
+            m_oldS = m_newS;
+		}
+	}
+
+	int NumDataValues() const {
+		return m_n;
+	}
+
+	double Mean() const {
+		return (m_n > 0) ? m_newM : 0.0;
+	}
+
+	double Variance() const {
+		return ( (m_n > 1) ? m_newS/(m_n - 1) : 0.0 );
+	}
+
+	double StandardDeviation() const {
+		return sqrt( Variance() );
+	}
+
+	void MeanStandardDeviation (double & mean, double & sd) {
+		mean = Mean();
+		sd = StandardDeviation();
+	}
+
+	void MeanVariance (double & mean, double & variance) {
+		mean = Mean();
+		variance = Variance();
+	}
+
+private:
+	int m_n;
+	double m_oldM, m_newM, m_oldS, m_newS;
+};
+
+
 /******************************************************/
 /*                  UTILS STATISTICS                  */
 /******************************************************/
 namespace putils {
+	double mean(vector < double > &);
+	double variance(vector < double > &, double );
+	double mean(vector < float > &);
+	double variance(vector < float > &, double );
+	bool isVariable(vector < float > &);
+	bool isVariable(vector < double > &);
 	void initRandom(long s);
 	double getRandom();
 	string getRandomID();
 	int getRandom(int);
+	void bootstrap(int, vector < int > &);
 	long getSeed();
 	void normalise(vector < double > & v);
+	void random_shuffle(vector < vector < float > > &);
 	int sample(vector< double > & v, double sum);
 	double entropy(vector < double > & v);
 	double KLdistance(vector < double > & P, vector < double > & Q);
@@ -85,6 +175,7 @@ namespace autils {
 	int max(vector < double > & v);
 	int max(vector < int > & v);
 	void findUniqueSet(vector < bool > & B, vector < int > & U);
+	void reorder(vector < float > &, vector < unsigned int > const & ) ;
 	void decompose(int min, vector < vector < int > > & B, vector < vector < vector < int > > > & BB);
 	int checkDuo (int pa1, int pa2, int ca1, int ca2);
 	int checkTrio (int fa1, int fa2, int ma1, int ma2, int ca1, int ca2);
@@ -100,10 +191,16 @@ namespace sutils {
 	string int2str(int n);
 	string int2str(vector < int > & v);
 	string long2str(long int n);
-	string double2str(double n, int prc = 4);
-	string double2str(vector < double > &v, int prc = 4);
+	string double2str(double n);
+	string double2str(double n, int prc);
+	string double2str(vector < double > &v);
+	string double2str(vector < double > &v, int prc);
+	string double2str(vector < float > &v);
+	string double2str(vector < float > &v, int prc);
 	string bool2str(vector<bool> & v);
 	string date2str(time_t * t, string format);
+	bool isNumeric(string &);
+	string remove_spaces(const string &);
 };
 
 /******************************************************/
@@ -112,6 +209,7 @@ namespace sutils {
 namespace futils {
 	bool isFile(string f);
 	bool createFile(string f);
+	void checkFile(string f, bool);
 	string extensionFile(string & filename);
 	void bool2binary(vector < bool > & V, ostream &fd);
 	bool binary2bool(vector < bool > & V, istream & fd);

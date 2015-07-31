@@ -13,218 +13,23 @@
 <body>
 <div class="content">
 
-	<div class="item"  id="cis_map1">
-		<h1>Nominal pass</h1>
+	<div class="item"  id="item1">
+		<h1>In construction</h1>
 		<p>
-		To perform a nominal pass on the example data set, use:
+		Text1
 		</p>
 		
 		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 <b>--nominal</b> --out results.txt.gz
+		Code1
 		</code>
 		
 		<p>
-		This should produce this output on the screen if everything works correctly:
+		Text2
 		</p>
-		
-		<img WIDTH=40% src="../../img/fastqtl_screenshot_nominal.jpg"></img>
-		
+				
 	</div>
-	
-	<div class="item"  id="cis_map2">
-		<h1>Permutation pass</h1>
-		<p>
-		To perform a permutation pass on the example data set with 1,000 permutations, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 <b>--permute 1000</b> --out results.txt.gz
-		</code>
-		
-		<p>
-		This should produce this output on the screen if everything works correctly:
-		</p>
-		
-		<img WIDTH=40% src="../../img/fastqtl_screenshot_permutation.jpg"></img>
-		
-		<p>
-		You can also perform a permutation pass on the example data set with an adaptive number of permutations. To run between 100 and 100,000 permutations, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 <b>--permute 100 100000</b> --out results.txt.gz
-		</code>
-		
-	</div>
-	
-	<div class="item"  id="cis_map3">
-		<h1>Association testing parameters</h1>
-		<p>
-		By default, correlation is measured with the Pearson product-moment correlation coefficient (<a href="http://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient">here</a>).
-		But you can also measure Spearman's rank correlation coefficient (<a href="http://en.wikipedia.org/wiki/Spearman's_rank_correlation_coefficient">here</a>) instead, which is particularly useful if the phenotype data is not normally distributed.
-		To use Spearman instead of Pearson, use:
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--spearman</b>
-		</code>
-		
-		<p>
-		Alternatively, you can also force FastQTL to quantile normalize the phenotype quantifications such that they fit normal distributions. To do so, use:
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--normal</b>
-		</code>
-		
-		<p>
-		To change the cis-window size (i.e. the maximal distance between phenotype and variant) from default value 1e6 bp to 2e6 bp, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--window 2e6</b>
-		</code>
-		
-		<p>
-		To change the seed of the random number generator, which is useful to replicate analysis, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--seed 123456789</b>
-		</code>
 
-		<p>
-		To add covariates in association testing, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--cov covariates.txt.gz</b>
-		</code>
-	</div>
-	
-	<div class="item"  id="cis_map4">
-		<h1>Excluding/Including data</h1>
-		<p>
-		To exclude samples, variants, phenotypes or covariates from the analysis, you can use one of these options:
-		<ol>
-			<li>To exclude samples: <i>--exclude-samples file.exc</i></li>
-			<li>To exclude variants: <i>--exclude-sites file.exc</i></li>
-			<li>To exclude phenotypes: <i>--exclude-phenotypes file.exc</i></li>
-			<li>To exclude caovariates: <i>--exclude-covariates file.exc</i></li>
-		</ol>
-		</p>
-		
-		<p>
-		For instance, if you want to ignore 3 samples in the example data set analysis, first create a text file containing the IDs of the samples to exclude, called here <i>file.exc</i>:   
-		</p>
-		
-		<code>
-		UNR1<br>
-		UNR2<br>
-		UNR3<br>
-		</code>
-		
-		<p> 
-		Then, run the following command line:
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --region 22:17000000-18000000 --permute 1000 --out results.txt.gz <b>--exclude-samples file.exc</b>
-		</code>
-		
-		<p>
-		Similarly to these 4 options for data exclusion, you can also specify the set of samples, variants, phenotypes and covariates to be included in the analysis using the options: <i>--exclude-samples, --exclude-sites, --exclude-phenotypes and --exclude-covariates</i>, respectively.
-		</p>
-	</div>
-	
-	
-	<div class="item"  id="cis_map5">
-		<h1>Parallelization</h1>
-		<p>
-		As a first way to facilitate parallelization on compute cluster, we developed an option to run the analysis for just a chunk of molecular phenotypes.
-		The region of interest is specified with <b>chr:start-end</b>, then FastQTL extracts all phenotypes in this region, then all genotypes given the specified cis-window size and finally perform the analysis for this data subset.
-		For instance, to run QTL mapping only for molecular phenotypes on chr22 with coordinates between 18Mb and 20Mb, use: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz <b>--region chr22:18000000-20000000</b> --permute 1000 --out results.txt.gz
-		</code>
-		
-		<note>
-		This option requires both the genotype and phenotype files to be indexed!
-		</note>
-		
-		<p>
-		This strategy is quite similar to what is commonly used for genotype imputation, where only small chunks of data are imputed one at a time in seperate jobs.
-		However in practice, it is usually quite complicated to properly split the genome into a given number of chunks with correct coordinates.
-		To facilitate this, we embedded all coordinates into a chunk-based system such that you only need to specify the chunk index you want to run. 
-		Then, splitting the genome into chunks, extraction of data, and analysis are automatically performed.
-		For instance, to run analysis on chunk number 25 when splitting the example data set (i.e. genome) into 30 chunks, just run:   		   
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.txt.gz <b>--chunk 25 30</b>
-		</code>
-		
-		<p>
-		If you want to submit the whole analysis into 512 jobs on your compute cluster, just run:
-		</p>
-		
-		<code>
-		for j in <b>$(seq 1 30)</b>; do<br>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.txt.gz <b>--chunk $j 30</b>" | qsub<br>
-		done
-		</code>
-		
-		<p>
-		Here <b>qsub</b> needs to be changed according to the job submission system used.  
-		</p>
-		
-		<note>
-		In this simple example, we only split the data into 30 chunks. 
-		However, a realistic whole genome analysis like Geuvadis would require to split the data in 200, 500 or even 1,000 chunks to fully use the capabilities of a modern compute cluster.  
-		</note>
-		
-		<p>
-		Finally, we also developed a slightly different parallelization option that, this time, allows to generate all required command lines and write into a file.
-		Let take the same example as before, that is splitting the analysis into 10 jobs: 
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results <b>--commands 10 commands.txt</b>
-		</code>
-		
-		<p>
-		Now if you look at the file <b>commands.txt</b>, you'll get this:
-		</p>
-		
-		<code>
-		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:17517460-20748406 --region 22:17517460-20748406<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:36424473-39052635 --region 22:36424473-39052635<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:24407642-30163001 --region 22:24407642-30163001<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:42017123-45704850 --region 22:42017123-45704850<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:20792146-22307210 --region 22:20792146-22307210<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:39052641-39915701 --region 22:39052641-39915701<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:30163352-36044443 --region 22:30163352-36044443<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:45809500-51222092 --region 22:45809500-51222092<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:22337213-24322661 --region 22:22337213-24322661<br>
- 		fastQTL --vcf genotypes.vcf.gz --bed phenotypes.bed.gz --permute 1000 --out results.22:39928860-42017101 --region 22:39928860-42017101<br>
-		</code>
-		
-		<p>
-		Where, region coordinates are automatically determined given the total number of chunks provided.
-		Then, you can submit all these commands on a cluster using for example:
-		</p>
-		
-		<code>
-		while read c; do<br>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $c | qsub<br>
-		done <b>| commands.txt</b>
-		</code>
-		
-	</div>
-	
-	<div class="log"><script type="text/javascript"> print_last_modif_date("$Date: 2014-09-25 16:41:17 +0200 (Thu, 25 Sep 2014) $"); </script></div>
+	<div class="log"><script type="text/javascript"> print_last_modif_date("$Date: 2014-10-25 12:59:59 +0200 (Sat, 25 Oct 2014) $"); </script></div>
 </div>
 </body>
 </html>
