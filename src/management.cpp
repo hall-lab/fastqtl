@@ -110,11 +110,9 @@ void data::deduceGenotypeRegion(int W) {
         // extended positions for harvesting variants, since
         // SVs may be in cis with POS greater than window distance
 	regionGenotype.chr = regionPhenotype.chr;
-	// regionGenotype.start = regionPhenotype.start - W;
-	regionGenotype.start = POS_MIN;
+	regionGenotype.start = regionPhenotype.start - W;
 	if (regionGenotype.start < 0) regionGenotype.start = 0;
-	// regionGenotype.end = regionPhenotype.end + W;
-	regionGenotype.end = POS_MAX;
+	regionGenotype.end = regionPhenotype.end + W;
 }
 
 void data::imputeGenotypes() {
