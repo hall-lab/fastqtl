@@ -4,7 +4,6 @@
 void data::readGenotypesVCF(string fvcf) {
 	string buffer;
 	vector<string> str, field;
-	map<string,string> info;
 	int n_includedG = 0;
 	int n_excludedG = 0;
 	int n_excludedF = 0;
@@ -47,6 +46,7 @@ void data::readGenotypesVCF(string fvcf) {
 
 			//Parse VCF INFO field
 			vector<string> info_v;
+			map<string,string> info;
 			sutils::tokenize(str[7], info_v, ";");
 			for (int i = 0; i < info_v.size(); ++i) {
 			  size_t sepPosition = info_v[i].find ('=');
