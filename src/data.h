@@ -23,7 +23,7 @@ public:
 	//REGIONS
 	region regionPhenotype;
 	region regionGenotype;
-	//float cis_window;
+	float cis_window;
     
 	//SAMPLES
 	int sample_count;									//sample number
