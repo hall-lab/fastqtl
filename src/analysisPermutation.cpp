@@ -38,11 +38,22 @@ void data::runPermutation(string fout, vector < int > nPermutations) {
 		//1.1. Enumerate all genotype-phenotype pairs within cis-window
 		vector < int > targetGenotypes, targetDistances;
 		for (int g = 0 ; g < genotype_count ; g ++) {
-			int cisdistance = genotype_pos[g] - phenotype_start[p];
-			if (cisdistance < 0) cisdistance += genotype_ref[g].size();
+			// int cisdistance = genotype_pos[g] - phenotype_start[p];
+			int cisdistance;
+			int startdistance = genotype_pos[g] - phenotype_start[p];
+			int enddistance = genotype_end[g] - phenotype_start[p];
+
+			if (startdistance < 0 && enddistance > 0) { // if gene is within SV, then cis distance is 0
+			  cisdistance = 0;
+			}
+			else if (startdistance >= 0)
+			  cisdistance = startdistance;
+			else
+			  cisdistance = enddistance;
+
 			if (abs(cisdistance) <= cis_window) {
-				targetGenotypes.push_back(g);
-				targetDistances.push_back(cisdistance);
+			  targetGenotypes.push_back(g);
+			  targetDistances.push_back(cisdistance);
 			}
 		}
 		LOG.println("  * Number of variants in cis = " + sutils::int2str(targetGenotypes.size()));

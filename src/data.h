@@ -56,6 +56,7 @@ public:
 	vector < string > genotype_ref;						//variant site chromosome
 	vector < string > genotype_id;						//variant site IDs
 	vector < int > genotype_pos;						//variant site positions
+	vector < int > genotype_end;                                            //variant site end (for SVs)
 
 	//PHENOTYPES
 	int phenotype_count;								//phenotype number
