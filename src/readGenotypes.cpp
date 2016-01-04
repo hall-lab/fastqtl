@@ -92,15 +92,16 @@ void data::readGenotypesVCF(string fvcf) {
 				//Parse VCF INFO to retrieve END position for structural variants
 				map<string,string>::iterator s_it;
 				int end = 0;
-				string svtype;
+				string svtype = "NA";
 				for (s_it = info.begin(); s_it != info.end(); ++s_it) {
 				  if (s_it->first == "SVTYPE") {
 				    svtype = s_it->second;
-				    genotype_vartype.push_back(svtype);
 				  }
 				  if (s_it->first == "END")
 				    end = atoi(s_it->second.c_str());
 				}
+				genotype_vartype.push_back(svtype);
+				    
 				if (end && svtype != "BND")
 				  genotype_end.push_back(end);
 				else
