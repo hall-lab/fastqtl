@@ -94,8 +94,10 @@ void data::readGenotypesVCF(string fvcf) {
 				int end = 0;
 				string svtype;
 				for (s_it = info.begin(); s_it != info.end(); ++s_it) {
-				  if (s_it->first == "SVTYPE")
+				  if (s_it->first == "SVTYPE") {
 				    svtype = s_it->second;
+				    genotype_vartype.push_back(svtype);
+				  }
 				  if (s_it->first == "END")
 				    end = atoi(s_it->second.c_str());
 				}

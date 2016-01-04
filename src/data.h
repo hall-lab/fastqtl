@@ -55,6 +55,7 @@ public:
 	vector < string > genotype_chr;						//variant site chromosome
 	vector < string > genotype_ref;						//variant site chromosome
 	vector < string > genotype_id;						//variant site IDs
+	vector < string > genotype_vartype;					//variant type
 	vector < int > genotype_pos;						//variant site positions
 	vector < int > genotype_end;                                            //variant site end (for SVs)
 

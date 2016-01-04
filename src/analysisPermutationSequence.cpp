@@ -46,11 +46,38 @@ void data::runPermutation(string fout, string fperm) {
 		//1.1. Enumerate all genotype-phenotype pairs within cis-window
 		vector < int > targetGenotypes, targetDistances;
 		for (int g = 0 ; g < genotype_count ; g ++) {
-			int cisdistance = genotype_pos[g] - phenotype_start[p];
-			if (abs(cisdistance) <= cis_window) {
-				targetGenotypes.push_back(g);
-				targetDistances.push_back(cisdistance);
-			}
+                  int cisdistance;
+                  int startdistance = genotype_pos[g] - phenotype_start[p];
+                  int enddistance = genotype_end[g] - phenotype_start[p];
+
+                  // for INVs ignore the span and define the cisdistance
+                  // as the distance from the breakpoints to the phenotype_start
+                  if (genotype_vartype[g].compare("INV") == 0) {
+                    if (abs(startdistance) <= abs(enddistance))
+                      cisdistance = startdistance;
+                    else
+                      cisdistance = enddistance;
+                  }
+
+                  // for the variants with span (DEL, DUP, MEI), cisdistance is zero
+                  // if the phenotype_start falls within the span, and the distance to
+                  // the closest edge otherwise
+                  // BNDs get processed here as well, but their END coordinate is the
+                  // same as the START coordinate.
+                  else {
+                    if (startdistance < 0 && enddistance > 0) { // if gene is within SV, then cis distance is 0
+                      cisdistance = 0;
+                    }
+                    else if (startdistance >= 0)
+                      cisdistance = startdistance;
+                    else
+                      cisdistance = enddistance;
+                  }
+
+                  if (abs(cisdistance) <= cis_window) {
+                    targetGenotypes.push_back(g);
+                    targetDistances.push_back(cisdistance);
+                  }
 		}
 		LOG.println("  * Number of variants in cis = " + sutils::int2str(targetGenotypes.size()));
 
