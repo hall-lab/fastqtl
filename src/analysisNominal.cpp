@@ -19,6 +19,20 @@
 
 void data::runNominal(string fout, double threshold) {
 
+        // plot pre-transformed values
+	for (int p = 0 ; p < phenotype_count ; p ++) {
+	  for (int g = 0 ; g < genotype_count ; g ++) {
+	    if (genotype_id[g].compare("LUMPY_BND_72911_2") == 0) {
+	      for (int s = 0 ; s < sample_count ; s++) {
+		cout << genotype_id[g] << "\t";
+		cout << phenotype_id[p] << "\t";			  
+		cout << genotype_orig[g][s] << "\t";
+		cout << phenotype_orig[p][s] << endl;
+	      }
+	    }
+	  }
+	}
+
 	//0. Prepare genotypes
 	vector < double > genotype_sd = vector < double > (genotype_count, 0.0);
 	vector < double > phenotype_sd = vector < double > (phenotype_count, 0.0);
@@ -27,10 +41,41 @@ void data::runNominal(string fout, double threshold) {
 		covariate_engine->residualize(genotype_orig);
 		covariate_engine->residualize(phenotype_orig);
 	}
+
+        // plot covariate corrected values
+	for (int p = 0 ; p < phenotype_count ; p ++) {
+	  for (int g = 0 ; g < genotype_count ; g ++) {
+	    if (genotype_id[g].compare("LUMPY_BND_72911_2") == 0) {
+	      for (int s = 0 ; s < sample_count ; s++) {
+		cout << genotype_id[g] << "\t";
+		cout << phenotype_id[p] << "\t";			  
+		cout << genotype_orig[g][s] << "\t";
+		cout << phenotype_orig[p][s] << endl;
+	      }
+	    }
+	  }
+	}
+
+	LOG.println("\nNormalizing");
+
 	for (int g = 0 ; g < genotype_count ; g ++) genotype_sd[g] = RunningStat(genotype_orig[g]).StandardDeviation();
 	for (int p = 0 ; p < phenotype_count ; p ++) phenotype_sd[p] = RunningStat(phenotype_orig[p]).StandardDeviation();
 	normalize(genotype_orig);
 	normalize(phenotype_orig);
+
+        // plot normalized values
+	for (int p = 0 ; p < phenotype_count ; p ++) {
+	  for (int g = 0 ; g < genotype_count ; g ++) {
+	    if (genotype_id[g].compare("LUMPY_BND_72911_2") == 0) {
+	      for (int s = 0 ; s < sample_count ; s++) {
+		cout << genotype_id[g] << "\t";
+		cout << phenotype_id[p] << "\t";			  
+		cout << genotype_orig[g][s] << "\t";
+		cout << phenotype_orig[p][s] << endl;
+	      }
+	    }
+	  }
+	}
 
 	//1. Loop over phenotypes
 	ofile fdo (fout);
@@ -88,6 +133,13 @@ void data::runNominal(string fout, double threshold) {
 				fdo << " " << pval;
 				fdo << " " << slope;
 				fdo << endl;
+			}
+
+			for (int s = 0 ; s < sample_count ; s++) {
+			  cout << genotype_id[targetGenotypes[g]] << "\t";
+			  cout << phenotype_id[p] << "\t";			  
+			  cout << genotype_orig[targetGenotypes[g]][s] << "\t";
+			  cout << phenotype_orig[p][s] << endl;
 			}
 		}
 		LOG.println("  * Progress = " + sutils::double2str((p+1) * 100.0 / phenotype_count, 1) + "%");
