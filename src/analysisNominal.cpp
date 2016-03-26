@@ -85,6 +85,7 @@ void data::runNominal(string fout, double threshold) {
 				fdo << phenotype_id[p];
 				fdo << " " << genotype_id[targetGenotypes[g]];
 				fdo << " " << targetDistances[g];
+				fdo << " " << corr;
 				fdo << " " << pval;
 				fdo << " " << slope;
 				fdo << endl;
