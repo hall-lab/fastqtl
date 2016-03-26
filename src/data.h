@@ -137,6 +137,7 @@ public:
 	void runNominal(string, double);
 	void runPermutation(string, vector < int >);
 	void runPermutation(string, string);
+	void runPermutationExtended(string, vector < int >);
 	void runPermutationPerGroup(string, vector < int >);
 	void runMapping(string, bool);
 	void runPermutationInteraction(string, int);

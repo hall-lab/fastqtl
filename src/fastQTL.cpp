@@ -58,6 +58,7 @@ int main(int argc, char ** argv) {
 	bpo::options_description opt_modes ("\33[33mModes\33[0m");
 	opt_modes.add_options()
 		("permute,P", bpo::value< vector < int > >()->multitoken(), "Permutation pass to calculate corrected p-values for molecular phenotypes.")
+		("permute-ext", bpo::value< vector < int > >()->multitoken(), "Same as permutation pass, except outputs all geno-pheno pairs.")
 		("psequence", bpo::value< string >(), "Permutation sequence.")
 		("map", bpo::value< string >(), "Map best QTL candidates per molecular phenotype.")
 		("map-full", "Scan full cis-window to discover independent signals.")
@@ -273,7 +274,11 @@ int main(int argc, char ** argv) {
 		else if (options.count("permute")) {
 			if (options.count("psequence")) D.runPermutation(options["out"].as < string > (), options["psequence"].as < string > ());
 			else D.runPermutation(options["out"].as < string > (), options["permute"].as < vector < int > > ());
-		} else if (options.count("map"))
+		}
+		else if (options.count("permute-ext")) {
+			D.runPermutationExtended(options["out"].as < string > (), options["permute-ext"].as < vector < int > > ());
+		}
+		else if (options.count("map"))
 			D.runMapping(options["out"].as < string > (), options.count("map-full"));
 		else
 			D.runNominal(options["out"].as < string > (), options["threshold"].as < double > ());
