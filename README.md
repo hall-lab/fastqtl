@@ -9,8 +9,7 @@ Documentation for FastQTL can be found here: [http://fastqtl.sourceforge.net](ht
 
 #### Description
 
-A structural variant (SV) lies within the cis window if:
-* any part of the spanned region is within the cis window *except* inversions, for which one (or both) of the breakpoints must fall are within the cis window
+A structural variant (SV) lies within the cis window if any part of the spanned region is within the cis window *except* inversions, for which one (or both) of the breakpoints must fall are within the cis window
 
 The spanned region for deletions, duplications, and inversions is inferred from the END field in the 8th column of the VCF. If the END field is absent for a variant, it assumes that the END is the same as the POS field (identical to standard FastQTL behavior).
 
