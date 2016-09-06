@@ -66,8 +66,8 @@ void data::runNominal(string fout, double threshold) {
         // // plot normalized values
 	// for (int p = 0 ; p < phenotype_count ; p ++) {
 	//   for (int g = 0 ; g < genotype_count ; g ++) {
-	//     for (int s = 0 ; s < sample_count ; s++) {
-	//       if (genotype_id[g].compare("LUMPY_BND_72911_2") == 0) {
+	//     if (genotype_id[g].compare("LUMPY_BND_72911_2") == 0) {
+	//       for (int s = 0 ; s < sample_count ; s++) {
 	// 	cout << genotype_id[g] << "\t";
 	// 	cout << phenotype_id[p] << "\t";			  
 	// 	cout << genotype_orig[g][s] << "\t";
