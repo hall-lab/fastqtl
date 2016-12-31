@@ -1,5 +1,6 @@
 #PLEASE SPECIFY THE R path here where you built the R math library standalone 
-RMATH=/gscmnt/gc2719/halllab/src/R-3.2.0/src
+RMATH=/home/jjzhu/src/R-3.2.0/src
+CBOOST=/home/jjzhu/src/boost_1_58_0
 
 #compiler
 CXX=g++
@@ -21,13 +22,13 @@ LDFLAG_DEBG=-g
 LDFLAG_MACX=-mmacosx-version-min=10.7 -stdlib=libc++
 
 #includes
-INC_BASE=-Isrc -I$(PATH_TABX) -I$(PATH_EIGN)
+INC_BASE=-Isrc -I$(PATH_TABX) -I$(PATH_EIGN) -I$(CBOOST)/include
 INC_MATH=-I$(RMATH)/include/
 INC_MACX=-I/usr/local/include/
 
 #libraries
 #LIB_BASE=-lm -lboost_iostreams -lboost_program_options -lz -lgsl -lblas
-LIB_BASE=-lm -lz -lboost_iostreams -lboost_program_options -lgsl -lblas -I/gscmnt/gc2719/halllab/src/boost_1_57_0/include -L/gscmnt/gc2719/halllab/src/boost_1_57_0/lib
+LIB_BASE=-lm -lz -lboost_iostreams -lboost_program_options -lgsl -lgslcblas -L$(CBOOST)/lib
 LIB_MATH=$(RMATH)/nmath/standalone/libRmath.a
 LIB_TABX=$(PATH_TABX)/libtabix.a
 LIB_MACX=-L/usr/local/lib/
