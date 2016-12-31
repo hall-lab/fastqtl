@@ -36,6 +36,7 @@ int main(int argc, char ** argv) {
 		("bed,B", bpo::value< string >(), "Phenotypes in BED format.")
 		("cov,C", bpo::value< string >(), "Covariates in TXT format.")
 		("grp,G", bpo::value< string >(), "Phenotype groups in TXT format.")
+		("mtx,M", bpo::value< string >(), "Output folder for matrices.")
 		("out,O", bpo::value< string >(), "Output file.");
 
 	bpo::options_description opt_exclusion ("\33[33mExclusion/Inclusion files\33[0m");
@@ -121,6 +122,13 @@ int main(int argc, char ** argv) {
 	if (!options.count("bed")) LOG.error("Phenotype data needs to be specified with --bed [file.bed]");
 	if (!options.count("out")) LOG.error("Output needs to be specified with --out [file.out]");
 
+	if (options.count("mtx")) {
+        LOG.println("\n*** cis-eQTL matrices will be written to folder ["+options["mtx"].as <string> () +"]\n");
+    } else {
+        LOG.println("\n*** cis-eQTL matrices will NOT be written to folder.\n");
+    };
+
+
 	int nParallel = options.count("chunk") + options.count("commands") + options.count("region");
 	if (nParallel != 1) LOG.error("Please, specify one of these options [--region, --chunk, --commands]");
 
@@ -137,6 +145,7 @@ int main(int argc, char ** argv) {
 	if (options.count("grp") && !futils::isFile(options["grp"].as < string > ())) LOG.error(options["grp"].as < string > () + " is impossible to open, check file existence or reading permissions");
 	if (options.count("map") && !futils::isFile(options["map"].as < string > ())) LOG.error(options["map"].as < string > () + " is impossible to open, check file existence or reading permissions");
 	if (!futils::createFile(options["out"].as < string > ())) LOG.error(options["out"].as < string > () + " is impossible to create, check writing permissions");
+
 
 	//-----------------------------------
 	// 6. CHECK INCLUSION/EXCLUSION FILES
@@ -188,7 +197,7 @@ int main(int argc, char ** argv) {
 		LOG.println("  * Using per MP p-value threshold from [" + options["map"].as < string > () + "]");
 		if (options.count("map-full")) LOG.println("  * Scanning all variants in cis and not only nominally significant ones");
 	} else {
-		LOG.println("\nPerform nominal analysis (used to get raw p-values of association)");
+		LOG.println("\nPerform nominal analysis with matrix output (used to get raw p-values of association)");
 		double threshold = options["threshold"].as < double > ();
 		if (threshold <= 0.0 || threshold > 1.0) LOG.error("Incorrect --threshold value  :  0 < X <= 1");
 		LOG.println("  * Using p-value threshold = " + sutils::double2str(threshold, 10));
@@ -281,7 +290,8 @@ int main(int argc, char ** argv) {
 		else if (options.count("map"))
 			D.runMapping(options["out"].as < string > (), options.count("map-full"));
 		else
-			D.runNominal(options["out"].as < string > (), options["threshold"].as < double > ());
+			// D.runNominal(options["out"].as < string > (), options["threshold"].as < double > ());
+			D.runNominalOutputMatrices(options["mtx"].as < string > (), options["out"].as < string > (), options["threshold"].as < double > ());
 	}
 
 	//----------------

@@ -3,3 +3,4 @@ bin
 bin/fastQTL
 obj/*.o
 lib/Tabix/*.o
+example/cis_eqtl_mtx
